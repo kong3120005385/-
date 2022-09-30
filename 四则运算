@@ -1,0 +1,108 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h> 
+#include <Windows.h>
+using namespace std;
+
+
+char Random()
+{
+	char sign;
+	srand((int)time(0));
+	int n = rand() % 4;
+	switch (n)
+	{
+	case 0:sign = '+'; break;
+	case 1:sign = '-'; break;
+	case 2:sign = '*'; break;
+	case 3:sign = '/'; break;
+	default:; break;
+	}
+	return sign;
+}
+
+
+int Onejudge(int a, char sgin, int b, int stsum)
+{
+	switch (sgin)
+	{
+	case '+':
+	{
+		if (a + b == stsum)
+			return 1;
+		else
+			return 0;
+		break;
+	}
+	case '-':
+	{
+		if (a - b == stsum)
+			return 1;
+		else
+			return 0;
+		break;
+	}
+	case '*':
+	{
+		if (a*b == stsum)
+			return 1;
+		else
+			return 0;
+		break;
+	}
+	case '/':
+	{
+		if (a / b == stsum)
+			return 1;
+		else
+			return 0;
+		break;
+	}
+	default:
+	{
+		return 0;
+		break;
+	}
+	}
+}
+
+
+int main()
+{
+	srand((int)time(0));
+	int r, n;
+	cout << "请输入最大数值\n";
+	cin >> r;
+	cout << "请输入题目数量\n";
+	cin >> n;
+	int RN = 0, WN = 0;
+	for (int i = 0; i < n; i++)
+	{
+		char exp1 = Random();;
+		int array[2];
+		for (int j = 0; j < 2; j++)
+		{
+			array[j] = rand() % r + 1;
+		}
+		char exp = exp1;
+		if (exp = "-"&&array[0] < array[1])
+		{
+			int t = array[0];
+			array[0] = array[1];
+			array[1] = t;
+		}
+		int answer;
+		cout << array[0] << exp1 << array[1] << ":\t";
+		cin >> answer;
+		int m = Onejudge(array[0], exp1, array[1], answer);
+		if (m == 1)
+			RN++;
+		else if (m == 0)
+			WN++;
+	}
+
+
+	cout << "正确答案数量" << RN << "\n";
+	cout << "错误答案数量" << WN;
+}
+
